@@ -1,0 +1,6 @@
+git bashの場合
+. ./env/Scripts/activate
+
+
+コマンドプロンプト
+.\env\Scripts\Activate.ps1
