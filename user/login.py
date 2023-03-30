@@ -69,7 +69,8 @@ class Login(views.APIView):
                 "message": "success",
                 "detail": {
                     "username": params.get("username"),
-                    "params_id": get_id.get("id")
+                    "params_id": get_id.get("id"),
+                    "token": request.session.session_key
                 }
             }
             logging.info(params.get("username") + "logged in")

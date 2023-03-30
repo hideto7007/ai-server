@@ -141,21 +141,14 @@ REST_FRAMEWORK = {
     # 認証が必要
     # 'DEFAULT_PERMISSION_CLASSES': [
     #     'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
-    #     'rest_framework.permissions.IsAuthenticated',
+    #     # 'rest_framework.permissions.IsAuthenticated',
     # ],
     # JWT認証
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        # 'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
-}
-
-SIMPLE_JWT = {
-    #トークンをJWTに設定
-    'AUTH_HEADER_TYPES':('JWT'),
-    #トークンの持続時間の設定
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60)
 }
 
 
