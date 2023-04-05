@@ -23,5 +23,5 @@ urlpatterns = [
     # path('api/auth/', include('djoser.urls')),
     path('api/auth/', obtain_jwt_token),
     path("api/", include("user.urls")),
-    # path('api/auth/', include('djoser.urls.jwt')),
+    path('api/object_detection_model/', include('object_detection_model.urls')),
 ]

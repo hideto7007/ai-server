@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'object_detection_model',
+    'project'
 ]
 
 MIDDLEWARE = [
