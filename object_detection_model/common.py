@@ -125,12 +125,6 @@ def update_object_detection_model_name_request(request):
     if len(result) > 0:
         return result
 
-    # result = update_request(ObjectDetectionModel,
-    #                         ObjectDetectionModelSerializer,
-    #                         ObjectDetectionModelColumn.ID.value,
-    #                         RequestDateType.ID.value,
-    #                         request)
-
     result = update_request(ObjectDetectionModel,
                             ObjectDetectionModelSerializer,
                             ObjectDetectionModelColumn.ID.value,
