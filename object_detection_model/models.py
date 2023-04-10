@@ -3,8 +3,6 @@ from django.db import models
 from django.utils import timezone
 import uuid
 
-# Create your models here.
-
 
 class ObjectDetectionModel(models.Model):
     """物体検知モデル"""

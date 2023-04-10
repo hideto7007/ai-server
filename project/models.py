@@ -3,7 +3,6 @@ from object_detection_model.models import ObjectDetectionModel
 
 from django.utils import timezone
 import uuid
-# Create your models here.
 
 
 class Project(models.Model):

@@ -259,3 +259,23 @@ def registrationValueToSession(request, key, value):
 
     if check_session(request):
         request.session[key] = value
+
+
+def delete_request(queryset, param_id, str_id):
+    """登録データ削除"""
+
+    if not value_check(str_id):
+        result = "idが不正です"
+        return result
+
+    # 削除対象のid取得する
+    filter_dict = {"delete_flag": 0, param_id + "__in": str_id}
+
+    queryset_delete_request = queryset.objects.filter(**filter_dict)
+    # DB登録データ削除
+    queryset_delete_request.delete()
+    result = []
+    if not queryset_delete_request.delete():
+        result = "DB登録データ削除失敗"
+
+    return result
