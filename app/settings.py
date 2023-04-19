@@ -39,20 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    # 'djoser',
-    # 'accounts',
-    # 'Profile',
-    # 'japanannualincome',
-    # 'incomeforecast',
-    # 'fp',
-    # 'users',
-    # 'widget_tweaks',
-    # 'django.contrib.sites',
-    # 'allauth',
-    # 'allauth.account',
-    # 'allauth.socialaccount',
-    # 'stockpriceforecast',
-    # 'test'
+    'djoser',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'object_detection_model',
+    'project'
 ]
 
 MIDDLEWARE = [
@@ -150,10 +143,11 @@ REST_FRAMEWORK = {
     # 認証が必要
     # 'DEFAULT_PERMISSION_CLASSES': [
     #     'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
-    #     'rest_framework.permissions.IsAuthenticated',
+    #     # 'rest_framework.permissions.IsAuthenticated',
     # ],
     # JWT認証
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        # 'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ),

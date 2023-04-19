@@ -1,0 +1,358 @@
+POST http://localhost:8000/api/incomeforecast/income_forecast_update/
+Content-Type: application/json
+
+{
+    "data": [
+        {
+            "payment_date": "2022-10-15",
+            "age": "22",
+            "industry": "ffefe",
+            "classification": "給料",
+            "total_amount": "25000",
+            "deduction_amount": "500",
+            "profile": "b1639e6e-afe1-4b4f-aaf2-09966c663b0e",
+            "income_forecast_id": "",
+            "take_home_amount": "24500"
+        },
+        {
+            "payment_date": "2022-09-15",
+            "age": "30",
+            "industry": "dsrere",
+            "classification": "給料",
+            "total_amount": "850000",
+            "deduction_amount": "150000",
+            "profile": "b1639e6e-afe1-4b4f-aaf2-09966c663b0e",
+            "income_forecast_id": "",
+            "take_home_amount": "700000"
+        },
+        {
+            "payment_date": "2022-11-15",
+            "age": "22",
+            "industry": "ffefe",
+            "classification": "給料",
+            "total_amount": "25000",
+            "deduction_amount": "500",
+            "profile": "b1639e6e-afe1-4b4f-aaf2-09966c663b0e",
+            "income_forecast_id": "",
+            "take_home_amount": "24500"
+        }
+    ]
+}
+
+###
+POST http://localhost:8000/api/incomeforecast/income_forecast_update/
+Content-Type: application/json
+
+{
+    "income_forecast_id": "8e8d922c-0cf0-fbb8-68be-ce17e5737c4f",
+    "data": [
+        {
+            "income_forecast_id": "8e8d922c-0cf0-fbb8-68be-ce17e5737c4f",
+            "payment_date": "2022-04-25",
+            "age": "28",
+            "industry": "システム開発",
+            "classification": "給料",
+            "total_amount": "240000",
+            "deduction_amount": "68000",
+            "take_home_amount": "200600",
+            "profile": "b1639e6e-afe1-4b4f-aaf2-09966c663b0e"
+        }
+    ]
+}
+
+###
+POST http://localhost:8000/api/incomeforecast/income_forecast_update/
+Content-Type: application/json
+# 更新
+
+//{
+//    "income_forecast_id": "",
+//    "data": [
+//        {
+//            "payment_date": "2022-08-25",
+//            "age": "28",
+//            "industry": "システム開発",
+//            "classification": "給料",
+//            "total_amount": "240000",
+//            "deduction_amount": "39400",
+//            "income_forecast_id": "",
+//            "profile": "b1639e6e-afe1-4b4f-aaf2-09966c663b0e",
+//            "take_home_amount": "200600"
+//        }
+//    ]
+//}
+
+{
+    "user_id": "5",
+    "data": [
+        {
+            "income_forecast_id": "16ce7f02-6399-4915-b9f7-7308248f439b",
+            "payment_date": "2022-06-15",
+            "age": "32",
+            "industry": "test",
+            "classification": "賞与",
+            "total_amount": "2500000",
+            "deduction_amount": "450000",
+            "take_home_amount": "2050000"
+        }
+    ]
+}
+
+
+
+###
+POST http://localhost:8000/api/incomeforecast/income_forecast_update/
+Content-Type: application/json
+# 新規登録
+
+//{
+//    "income_forecast_id": "",
+//    "data": [
+//        {
+//            "payment_date": "2022-08-25",
+//            "age": "28",
+//            "industry": "システム開発",
+//            "classification": "給料",
+//            "total_amount": "240000",
+//            "deduction_amount": "39400",
+//            "income_forecast_id": "",
+//            "profile": "b1639e6e-afe1-4b4f-aaf2-09966c663b0e",
+//            "take_home_amount": "200600"
+//        }
+//    ]
+//}
+
+{
+    "user_id": "5",
+    "data": [
+        {
+            "payment_date": "2022-06-15",
+            "age": "30",
+            "industry": "ppp",
+            "classification": "給料",
+            "total_amount": "250000",
+            "deduction_amount": "45000",
+            "take_home_amount": "205000"
+        }
+    ]
+}
+
+
+
+###
+POST http://127.0.0.1:8000/api/income/income_update/
+Content-Type: application/json
+
+{
+    "income_id": "",
+    "data": [
+        {
+            "company_name": "",
+            "company_size": "",
+            "industry": "システム開発",
+            "employee_number": "25",
+            "avg_age": 22,
+            "avg_income": ""
+        }
+    ]
+}
+
+###
+POST http://127.0.0.1:8000/api/income/income_update/
+Content-Type: application/json
+
+{
+    "income_id": "",
+    "data": [
+        {
+            "company_name": "PayPay株式会社",
+            "company_size": "ベンチャー",
+            "industry": "モバイルペイメント等電子決済サービスの開発・提供",
+            "employee_number": "1600",
+            "avg_age": "36",
+            "avg_income": "637"
+        }
+    ]
+}
+
+###
+POST http://127.0.0.1:8000/api/income/income_update/
+Content-Type: application/json
+
+{
+    "income_id": "6df9e529-c71e-8b41-cfa3-cf8ccdefb589",
+    "data": [
+        {
+            "income_id": "6df9e529-c71e-8b41-cfa3-cf8ccdefb589",
+            "company_name": "株式会社キーエンス",
+            "company_size": "大企業",
+            "industry": "電気機器",
+            "employee_number": "8380",
+            "avg_age": "42",
+            "avg_income": "1839"
+        }
+    ]
+}
+
+
+###
+POST http://127.0.0.1:8000/api/profile_update/
+Content-Type: application/json
+
+//{
+//    "id": "b1639e6e-afe1-4b4f-aaf2-09966c663b0e",
+//    "data": [
+//        {
+//            "id": "b1639e6e-afe1-4b4f-aaf2-09966c663b0e",
+//            "first_name": "devlop",
+//            "last_name": "admin",
+//            "sex": "男性",
+//            "age": "25",
+//            "info": "フリーランス"
+//        }
+//    ]
+//}
+
+
+
+//{
+//    "user_id": "1",
+//    "data": [
+//        {
+//            "id": "b1639e6e-afe1-4b4f-aaf2-09966c663b0e",
+//            "first_name": "都築",
+//            "last_name": "秀人",
+//            "sex": "男性",
+//            "age": "28",
+//            "info": "会社員"
+//        }
+//    ]
+//}
+
+{
+    "user_id": "5",
+    "data": [
+        {
+            "id": "0fe77d6e-1eb2-41c7-8e9b-b2ffa05c8028",
+            "first_name": "常慶",
+            "last_name": "翔",
+            "sex": "男性",
+            "age": "35",
+            "info": "会社員"
+        }
+    ]
+}
+
+
+
+
+
+###
+
+POST http://127.0.0.1:8000/api/profile_update/
+Content-Type: application/json
+
+{
+    "user_id": "1",
+    "data": [
+        {
+            "user_id": "1",
+            "first_name": "都築",
+            "last_name": "秀人",
+            "sex": "男性",
+            "age": "28",
+            "info": "会社員"
+        }
+    ]
+}
+
+
+
+###
+GET http://127.0.0.1:8000/api/profile_list/?id=53d44249-445e-43e9-92d2-29638a981072
+Accept: application/json
+
+###
+GET http://127.0.0.1:8000/api/profile_create/
+Accept: application/json
+
+###
+POST http://localhost:8000/api/auth/
+Content-Type: application/json
+
+//{
+//  "username": "user_admin",
+//  "password": "ad123min456"
+//}
+
+{
+  "username": "ai_app",
+  "password": "ai_app123"
+}
+
+###
+
+POST http://localhost:8000/api/create-users/
+Content-Type: application/json
+
+//{
+//  "first_name": "hoge",
+//  "last_name": "hoge2",
+//  "username": "hogehoge",
+//  "password": "hogehoge123",
+//  "is_active": true,
+//  "is_superuser": false
+//}
+
+{
+  "first_name": "tsuzuki",
+  "last_name": "hideto",
+  "username": "tsuzuki",
+  "password": "tsuzuki123!",
+  "email": "tsuzuki@example.com",
+  "is_active": true,
+  "is_superuser": true
+}
+
+###
+
+#"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImZpbmFuY2UiLCJleHAiOjE2NTU2NDA3ODcsImVtYWlsIjoiZmluYW5jZUBleGFtcGxlLmNvbSIsIm9yaWdfaWF0IjoxNjU1NTU0Mzg3fQ.EzVmwcZA5awktkt_fwwk6QbXHBqyQKY_WWgBnsSp6Hc"
+
+
+//{
+//    "data": [
+//        {
+//            "payment_date": "2022-05-15",
+//            "age": "22",
+//            "industry": "ffefe",
+//            "classification": "給料",
+//            "total_amount": "25000",
+//            "deduction_amount": "500",
+//            "profile": "b1639e6e-afe1-4b4f-aaf2-09966c663b0e",
+//            "income_forecast_id": "",
+//            "take_home_amount": "24500"
+//        },
+//        {
+//            "payment_date": "2022-05-15",
+//            "age": "22",
+//            "industry": "ffefe",
+//            "classification": "給料",
+//            "total_amount": "25000",
+//            "deduction_amount": "500",
+//            "profile": "b1639e6e-afe1-4b4f-aaf2-09966c663b0e",
+//            "income_forecast_id": "",
+//            "take_home_amount": "24500"
+//        },
+//        {
+//            "payment_date": "",
+//            "age": "",
+//            "industry": "",
+//            "classification": "",
+//            "total_amount": 0,
+//            "deduction_amount": 0,
+//            "profile": "b1639e6e-afe1-4b4f-aaf2-09966c663b0e",
+//            "income_forecast_id": "",
+//            "take_home_amount": "0"
+//        }
+//    ]
+//}
