@@ -269,7 +269,7 @@ def delete_request(queryset, param_id, str_id):
         return result
 
     # 削除対象のid取得する
-    filter_dict = {"delete_flag": 0, param_id + "__in": str_id}
+    filter_dict = {"delete_flag": 0, param_id: str_id}
 
     queryset_delete_request = queryset.objects.filter(**filter_dict)
     # DB登録データ削除
