@@ -12,7 +12,10 @@ from common.common import (
     datetime_valid_check,
     valid_int,
     valid_date,
-    int_replace
+    int_replace,
+    each_items_valid,
+    valid_request_check
+
 )
 from const.const import ObjectDetectionModelColumn, RequestDateType
 
@@ -34,37 +37,6 @@ def get_object_detection_model_list():
                     res["object_detection_model_name"]),
             }
         )
-
-    return result
-
-
-def each_items_valid(key, value):
-    """各項目バリデーションチェック"""
-
-    result = []
-    # 全て必須項目
-    required = True
-    if key == "object_detection_model_name":
-        if not valid_date(value, required):
-            result.append("物体検知モデル名")
-
-    return result
-
-
-def valid_request_check(request):
-    """登録データへの妥当性チェック"""
-
-    result = []
-    object_detection_model_name_request = request.data[RequestDateType.ENTRY_DATA.value][0]
-
-    for key, val in object_detection_model_name_request.items():
-        valid_items = each_items_valid(key, val)
-        result.append(valid_items)
-
-    if len(result) > 0:
-        error_list = ['{0}行目で、{1}項目でのバリデーションエラー'.format(idx + 1, vals)
-                      for idx, val in enumerate(result) for vals in val]
-        return error_list
 
     return result
 
