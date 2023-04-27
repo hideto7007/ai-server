@@ -2,6 +2,7 @@ import datetime
 import requests
 import re
 from django.contrib.sessions.models import Session
+from const.const import RequestDateType
 
 
 def datetime_str_replace(date, before_format, after_format):
@@ -230,6 +231,54 @@ def valid_int(value, required):
                 valid = True
 
     return valid
+
+
+def each_items_valid(key, value):
+    """各項目バリデーションチェック"""
+
+    result = []
+    # 全て必須項目
+    required = True
+    if key == "id":
+        if not valid_date(value, required):
+            result.append("id")
+    elif key == "name":
+        if not valid_date(value, required):
+            result.append("物体検知モデル名")
+    elif key == "first_name":
+        if not valid_date(value, required):
+            result.append("苗字")
+    elif key == "last_name":
+        if not valid_date(value, required):
+            result.append("名前")
+    elif key == "email":
+        if not valid_date(value, required):
+            result.append("メールアドレス")
+    elif key == "username":
+        if not valid_date(value, required):
+            result.append("ユーザー名")
+    elif key == "password":
+        if not valid_date(value, required):
+            result.append("パスワード")
+
+    return result
+
+
+def valid_request_check(request):
+    """登録データへの妥当性チェック"""
+
+    result = []
+
+    for key, val in request.data[RequestDateType.ENTRY_DATA.value][0].items():
+        valid_items = each_items_valid(key, val)
+        result.append(valid_items)
+
+    if len(result) > 0:
+        error_list = ['{0}行目で、{1}項目でのバリデーションエラー'.format(idx + 1, vals)
+                      for idx, val in enumerate(result) for vals in val]
+        return error_list
+
+    return result
 
 def save_session(request):
     if not request.session.session_key:
