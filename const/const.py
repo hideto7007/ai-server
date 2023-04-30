@@ -11,6 +11,10 @@ class ObjectDetectionModelColumn(Enum):
     ID = "id"
     OBJECT_DETECTION_MODEL_NAME = "object_detection_model_name"
 
+class AccountColumn(Enum):
+    """アカウント表示用カラムデータ"""
+    ID = "id"
+
 class RequestDateType(Enum):
     """登録データ"""
     ENTRY_DATA = "data"
