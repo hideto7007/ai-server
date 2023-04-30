@@ -5,11 +5,21 @@ from const.const import RequestDateType, AccountColumn
 from common.common import valid_request_check, valid_request_check
 
 
+def get_best_new_id():
+    """最も新しいidを取得"""
+
+    return int(UserSerializer(User.objects.order_by('-id'), many=True).data[0]['id'])
+
+
 def update_request(queryset, serializer, key_id, id_value, request):
+
     """データ更新、登録"""
 
+    # 一番最新のidに対してプラス1して、id取得する
+    id_value = str(get_best_new_id() + 1)
+
     filter_dict = {
-        key_id: str(id_value)
+        key_id: id_value
     }
 
     result = []
@@ -17,6 +27,7 @@ def update_request(queryset, serializer, key_id, id_value, request):
     query_request = request.data[RequestDateType.ENTRY_DATA.value]
 
     for res in query_request:
+        res["id"] = id_value
         res["is_active"] = True
         res["is_superuser"] = True
         res["is_staff"] = True
