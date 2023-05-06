@@ -69,3 +69,22 @@ def update_account_request(request):
                             request)
 
     return result
+
+
+def get_user_info(str_id):
+    """user情報の取得"""
+
+    user_list = User.objects.filter(id=str_id)
+    result = []
+    for res in UserSerializer(user_list, many=True).data:
+        result.append(
+            {
+                "username": res["username"],
+                "first_name": res["first_name"],
+                "last_name": res["last_name"],
+                "email": res["email"],
+                "password": res["password"]
+            }
+        )
+
+    return result
