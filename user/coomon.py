@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
 from .serializers import UserSerializer
 from const.const import RequestDateType, AccountColumn
 from common.common import valid_request_check, valid_request_check
@@ -12,7 +13,6 @@ def get_best_new_id():
 
 
 def update_request(queryset, serializer, key_id, id_value, request):
-
     """データ更新、登録"""
 
     # 一番最新のidに対してプラス1して、id取得する
