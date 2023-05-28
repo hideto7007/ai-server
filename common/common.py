@@ -36,7 +36,6 @@ def int_check(value):
     return valid
 
 
-
 def value_check(value):
     """
     　　値チェック
@@ -186,7 +185,6 @@ def valid_float(value, required, min, max):
     return valid
 
 
-
 def dbvalue_to_str(value):
     """db取得項目を文字列に変換して返す"""
 
@@ -280,37 +278,67 @@ def valid_request_check(request):
 
     return result
 
+
+# この関数は使わない
 def save_session(request):
-    if not request.session.session_key:
-        request.session.save()
+    request.session.save()
+    # s = Session.objects.get(pk=request.session.session_key)
+    # TBD:ここでデータを受け取って存在チェックするように修正する
+    # print("確認", s)
+    # if not request.session.session_key:
+    #     request.session.save()
+    # else:
+    #     if request.session.exists(request.session.session_key) == False:
+    #         request.session.save()
+    #         print("request.session.save()", request.session.save())
+
+
+def check_session(username, token, user_id=None):
+    # session存在チェック
+    from user.login import get_user_id
+
+    check = True
+
+    # 日付文字列を修正する
+    datetime_str_re = lambda target, date_str: date_str[:date_str.find(target)]
+
+    get_datetime = datetime_str_re(".", get_user_id(username, user_id)["last_login"]).replace("T", " ")
+
+    time_diff = datetime.datetime.now() - datetime.datetime.strptime(get_datetime, '%Y-%m-%d %H:%M:%S')
+
+    # 設定時間：5分
+    setting_td = datetime.timedelta(minutes=5)
+
+    print(time_diff)
+
+    # 規定時間以上ログインしていたらログアウトにする
+    if time_diff >= setting_td:
+        print("削除")
+        delete_request(Session,
+                       "session_key",
+                       token,
+                       True)
+        check = False
     else:
-        if request.session.exists(request.session.session_key) == False:
-            request.session.save()
+        print("ログイン中")
+    return check
 
 
-def check_session(request):
-    # この関数を呼び出さないとCookiesに反映さえない
-    # しかし、save_session関数をここで実装するとCookiesの値を削除しても自動で生成される
-    save_session(request)
-    if request.session.exists(request.session.session_key) == True:
-        return True
-    else:
-        return False
-
-def check_login(request):
+def check_login(username, token, user_id):
     login = True
-    if not check_session(request):
+    if not check_session(username, token, user_id):
         login = False
     return login
 
-def registrationValueToSession(request, key, value):
+
+def registrationValueToSession(request, key, value, user_id):
     """指定されたキーをセッションに保存する"""
 
-    if check_session(request):
+    if check_session(request, value, user_id):
         request.session[key] = value
 
 
-def delete_request(queryset, param_id, str_id):
+def delete_request(queryset, param_id, str_id, session_flag=False):
     """登録データ削除"""
 
     if not value_check(str_id):
@@ -318,7 +346,11 @@ def delete_request(queryset, param_id, str_id):
         return result
 
     # 削除対象のid取得する
-    filter_dict = {"delete_flag": 0, param_id: str_id}
+    # sessionにはdelete_flagがない為、分岐させて取得パラメータのみにする
+    if session_flag:
+        filter_dict = {param_id: str_id}
+    else:
+        filter_dict = {"delete_flag": 0, param_id: str_id}
 
     queryset_delete_request = queryset.objects.filter(**filter_dict)
     # DB登録データ削除
