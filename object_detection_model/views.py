@@ -18,8 +18,8 @@ class ObjectDetectionModelListAPIView(views.APIView):
 
     def get(self, request, *args, **kwargs):
 
-        if check_login(request):
-            # request.GET.get("model_id")
+        if check_login(request.GET.get("username"), request.GET.get("token"), request.GET.get("user_id")):
+            # request.GET.get("user_id")
             result = get_object_detection_model_list()
 
             if isinstance(result, list):
@@ -47,7 +47,7 @@ class ObjectDetectionModelDeleteAPIView(views.APIView):
     def post(self, request, *args, **kwargs):
         """物体検知モデルデータ削除"""
 
-        if check_login(request):
+        if check_login(request.GET.get("username"), request.GET.get("token"), request.GET.get("user_id")):
             result_code = ApiResultKind.RESULT_SUCCESS
             result_array = delete_request(ObjectDetectionModel,
                                           ObjectDetectionModelColumn.ID.value,
@@ -78,7 +78,7 @@ class ObjectDetectionModelPostListAPIView(views.APIView):
         result_code = ApiResultKind.RESULT_SUCCESS
         detail = {}
 
-        if check_login(request):
+        if check_login(request.GET.get("username"), request.GET.get("token"), request.GET.get("user_id")):
             # バリデート一つでもエラーがあれば中断
             result_array = update_object_detection_model_name_request(request)
 
