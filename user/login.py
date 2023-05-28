@@ -16,7 +16,7 @@ import logging
 
 import json
 
-from common.common import check_login, save_session, check_session, registrationValueToSession
+from common.common import check_login, check_session, registrationValueToSession
 
 
 # views.APIView
@@ -55,13 +55,13 @@ class Login(views.APIView):
             # djangoにログインしたことを伝える
             login(request, user_auth)
 
-            # セッション作成
-            save_session(request)
+            get_id = get_user_id(username, None)
 
-            get_id = get_user_id(params.get("username"))
+            # セッション作成
+            check_session(username, request.session.session_key)
 
             # セッションに格納
-            registrationValueToSession(request, "username", username)
+            # registrationValueToSession(request, "username", username, get_id.get("id"))
 
             # レスポンス生成
             response = {
@@ -78,16 +78,20 @@ class Login(views.APIView):
         return JsonResponse(response, safe=False)
 
 
-def get_user_id(username_str):
+def get_user_id(username_str, user_id):
     """userのid取得"""
 
-    user_list = User.objects.filter(username=username_str)
+    if user_id is None:
+        user_list = User.objects.filter(username=username_str)
+    else:
+        user_list = User.objects.filter(username=username_str, id=user_id)
     result = []
     for res in UserSerializer(user_list, many=True).data:
         result.append(
             {
                 "id": res["id"],
                 "username": res["username"],
+                "last_login": res["last_login"]
             }
         )
 
