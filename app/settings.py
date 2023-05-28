@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'corsheaders',
     'djoser',
     'django.contrib.sites',
     'allauth',
@@ -49,8 +50,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.security.SecurityMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -82,7 +83,7 @@ WSGI_APPLICATION = "app.wsgi.application"
 SESSION_COOKIE_HTTPONLY = True
 SESSION_SAVE_EVERY_REQUEST = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-SESSION_COOKIE_AGE = 60 * 60 * 12
+SESSION_COOKIE_AGE = 60 * 1
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -165,9 +166,30 @@ JWT_AUTH = {
     'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=7),
 }
 
+CSRF_COOKIE_NAME = 'csrftoken'
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SECURE = False
+SESSION_COOKIE_SAMESITE = None
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:5173',
 )
 
+
+# キャッシュバックエンドの設定例（ローカルメモリキャッシュを使用する場合）
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+#         'LOCATION': 'unique-snowflake',
+#     }
+# }
+
+
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
+# django.contrib.sessions.backends.db
+# django.contrib.sessions.backends.cache
