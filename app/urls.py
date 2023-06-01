@@ -24,4 +24,5 @@ urlpatterns = [
     path('api/auth/', obtain_jwt_token),
     path("api/", include("user.urls")),
     path('api/object_detection_model/', include('object_detection_model.urls')),
+    path('api/project/', include('project.urls')),
 ]

@@ -306,8 +306,8 @@ def check_session(username, token, user_id=None):
 
     time_diff = datetime.datetime.now() - datetime.datetime.strptime(get_datetime, '%Y-%m-%d %H:%M:%S')
 
-    # 設定時間：5分
-    setting_td = datetime.timedelta(minutes=5)
+    # 設定時間：1時間
+    setting_td = datetime.timedelta(hours=1)
 
     print(time_diff)
 
