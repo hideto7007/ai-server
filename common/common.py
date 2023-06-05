@@ -360,3 +360,9 @@ def delete_request(queryset, param_id, str_id, session_flag=False):
         result = "DB登録データ削除失敗"
 
     return result
+
+
+def get_best_new_id(queryset, serializer):
+    """最も新しいidを取得"""
+
+    return int(serializer(queryset.objects.order_by('-id'), many=True).data[0]['id'])
