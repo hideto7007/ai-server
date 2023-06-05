@@ -3,23 +3,17 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
 from .serializers import UserSerializer
 from const.const import RequestDateType, AccountColumn
-from common.common import valid_request_check, valid_request_check
+from common.common import valid_request_check, valid_request_check, get_best_new_id
 import json
 from django.http import JsonResponse
 from django.contrib.auth import authenticate
-
-
-def get_best_new_id():
-    """最も新しいidを取得"""
-
-    return int(UserSerializer(User.objects.order_by('-id'), many=True).data[0]['id'])
 
 
 def update_request(queryset, serializer, key_id, get_id, request):
     """データ更新、登録"""
 
     # 一番最新のidに対してプラス1して、id取得する
-    id_value = str(get_best_new_id() + 1)
+    id_value = str(get_best_new_id(User, UserSerializer) + 1)
 
     if get_id == "undefined":
         filter_dict = {
