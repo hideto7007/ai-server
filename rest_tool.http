@@ -1,3 +1,27 @@
+POST http://127.0.0.1:8000/api/project/project_create_or_update/
+Content-Type: application/json
+
+{
+  "params": [
+        {
+          "username": "ai_app",
+          "token": "90h3csnejam5wlem2sqle6c1wzldd49y",
+          "user_id": "8"
+        }
+      ],
+  "data": [
+    {
+      "id": "4",
+      "project_name": "test",
+      "object_detection_model_name_id": "19"
+    }
+  ]
+}
+
+
+
+
+###
 GET http://127.0.0.1:8000/api/object_detection_model/object_detection_model_list/?user_id=8&username=ai_app
 Accept: application/json
 
@@ -5,6 +29,23 @@ Accept: application/json
 GET http://127.0.0.1:8000/api/project/project_list/?model_name=EfficientDet&id=19&user_id=8&username=ai_app
 Accept: application/json
 
+
+//{
+//  "params": [
+//        {
+//          "username": "ai_app",
+//          "token": "90h3csnejam5wlem2sqle6c1wzldd49y",
+//          "user_id": "8"
+//        }
+//      ],
+//  "data": [
+//    {
+//      "id": "0",
+//      "project_name": "test",
+//      "object_detection_model_name_id": "19"
+//    }
+//  ]
+//}
 
 
 ###
