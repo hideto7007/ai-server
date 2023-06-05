@@ -7,6 +7,7 @@ from django.http import JsonResponse
 from common.common import check_login, delete_request
 from project.common import (
     get_project_model_list,
+    update_project_request
 )
 from const.const import ApiResultKind, ObjectDetectionModelColumn
 from project.models import Project
@@ -68,30 +69,32 @@ class ProjectlListAPIView(views.APIView):
 #             return JsonResponse(request, safe=False)
 #
 #
-# class ObjectDetectionModelPostListAPIView(views.APIView):
-#     """物体検知モデル名データ登録・更新APIクラス"""
-#
-#     def post(self, request, *args, **kwargs):
-#
-#         result_code = ApiResultKind.RESULT_SUCCESS
-#         detail = {}
-#
-#         if check_login(request.GET.get("username"), request.GET.get("token"), request.GET.get("user_id")):
-#             # バリデート一つでもエラーがあれば中断
-#             result_array = update_object_detection_model_name_request(request)
-#
-#             if len(result_array) == 0:
-#                 result_code = result_code
-#                 message = "Success"
-#             else:
-#                 result_code = ApiResultKind.RESULT_ERROR
-#                 message = "登録及び更新エラー"
-#                 detail["error_list"] = result_array
-#
-#             return JsonResponse(
-#                 {"result_code": result_code, "message": message, "detail": detail}, safe=False
-#             )
-#         else:
-#             request = {"result_code": 1, "message": "セッションの有効期限が切れています。"}
-#
-#             return JsonResponse(request, safe=False)
+class ProjectPostListAPIView(views.APIView):
+    """プロジェクトデータ登録・更新APIクラス"""
+
+    def post(self, request, *args, **kwargs):
+
+        result_code = ApiResultKind.RESULT_SUCCESS
+        detail = {}
+
+        if check_login(request.data["params"][0]["username"],
+                       request.data["params"][0]["token"],
+                       request.data["params"][0]["user_id"]):
+            # バリデート一つでもエラーがあれば中断
+            result_array = update_project_request(request)
+
+            if len(result_array) == 0:
+                result_code = result_code
+                message = "Success"
+            else:
+                result_code = ApiResultKind.RESULT_ERROR
+                message = "登録及び更新エラー"
+                detail["error_list"] = result_array
+
+            return JsonResponse(
+                {"result_code": result_code, "message": message, "detail": detail}, safe=False
+            )
+        else:
+            request = {"result_code": 1, "message": "セッションの有効期限が切れています。"}
+
+            return JsonResponse(request, safe=False)
