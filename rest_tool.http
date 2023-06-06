@@ -1,3 +1,18 @@
+POST http://127.0.0.1:8000/api/project/project_delete/
+Content-Type: application/json
+
+{
+    "params": [
+        {
+          "username": "ai_app",
+          "token": "evb41xz0rrepmv0g1nx1z2upjab9w28d",
+          "user_id": "8"
+        }
+      ],
+  "id": "24"
+}
+
+###
 POST http://127.0.0.1:8000/api/project/project_create_or_update/
 Content-Type: application/json
 
@@ -5,18 +20,19 @@ Content-Type: application/json
   "params": [
         {
           "username": "ai_app",
-          "token": "90h3csnejam5wlem2sqle6c1wzldd49y",
+          "token": "evb41xz0rrepmv0g1nx1z2upjab9w28d",
           "user_id": "8"
         }
       ],
   "data": [
     {
-      "id": "4",
+      "id": "0",
       "project_name": "test",
       "object_detection_model_name_id": "19"
     }
   ]
 }
+
 
 
 
