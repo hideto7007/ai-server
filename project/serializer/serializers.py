@@ -4,7 +4,7 @@ from project.models import Project
 
 
 class ProjectModelSerializer(serializers.ModelSerializer):
-    object_detection_model_name = ObjectDetectionModelSerializer()
+    object_detection_model_name = ObjectDetectionModelSerializer(read_only=True)
 
     class Meta:
         model = Project
@@ -13,4 +13,11 @@ class ProjectModelSerializer(serializers.ModelSerializer):
         #           'project_name',
         #           'object_detection_model_name'
         #           ]
+        fields = "__all__"
+
+
+class ProjectSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Project
         fields = "__all__"
