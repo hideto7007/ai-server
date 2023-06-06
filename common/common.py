@@ -258,6 +258,12 @@ def each_items_valid(key, value):
     elif key == "password":
         if not valid_date(value, required):
             result.append("パスワード")
+    elif key == "project_name":
+        if not valid_date(value, required):
+            result.append("プロジェクト名")
+    elif key == "object_detection_model_name_id":
+        if not valid_date(value, required):
+            result.append("物体検知ID")
 
     return result
 
