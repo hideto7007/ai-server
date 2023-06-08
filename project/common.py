@@ -51,12 +51,22 @@ def get_project_model_list(model_name, id_str):
     return result
 
 
-def update_request(queryset, serializer, key_id, id_value_flag, request):
-    """データ更新、登録"""
+def update_request(queryset, serializer, key_id, id_value_flag, request, user):
+    """
+        データ更新、登録
+
+        queryset(queryObject): モデル,
+        serializer(json): モデルシリアライザー,
+        key_id(str): オブジェクトのキー,
+        id_value_flag(str): 各オブジェクトのid値,
+        request(object): 各オブジェクト,
+        user(str): ログインユーザー情報
+    """
 
     timestamp = 1337000000
 
     # id_valueが0の場合、一番最新のidに対してプラス1して、id取得する(新規作成)
+    # 更新の場合、id_valueにそのままid_value_flagを代入する
     if id_value_flag == "0":
         id_value = str(get_best_new_id(Project, ProjectModelSerializer) + 1)
     else:
@@ -67,42 +77,34 @@ def update_request(queryset, serializer, key_id, id_value_flag, request):
     }
 
     result = []
-    res_data = {}
     save_query = queryset.objects.filter(**filter_dict).first()
-    query_request = request.data[RequestDateType.ENTRY_DATA.value]
-    for res in query_request:
-        res_data["project_name"] = res["project_name"]
-        res_data["object_detection_model_name"] = res["object_detection_model_name_id"]
-        res_data["update_user"] = str(request.user)
-        res_data["delete_flag"] = "0"
-        res_data["created_at"] = datetime.datetime.fromtimestamp(timestamp, tz=tz.gettz('Asia/Tokyo'))
+    request["update_user"] = str(user)
+    request["delete_flag"] = "0"
+    request["created_at"] = datetime.datetime.fromtimestamp(timestamp, tz=tz.gettz('Asia/Tokyo'))
 
-        if save_query is None:
-            # user_idが異なる場合新規登録処理
-            print("create")
-            res_data["id"] = id_value
-            print(res_data)
-            serializer = serializer(data=res_data)
-            if serializer.is_valid(raise_exception=True):
-                serializer.save()
-            elif not serializer.save():
-                result = "DB登録失敗"
-            else:
-                result = "DB登録内容エラー"
-
+    if save_query is None:
+        # user_idが異なる場合新規登録処理
+        print("create")
+        print(request)
+        serializer = serializer(data=request)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+        elif not serializer.save():
+            result = "DB登録失敗"
         else:
-            # user_idが同一の場合は更新処理
-            print("update")
-            print(res_data)
-            serializer = serializer(instance=save_query, data=res_data)
-            if serializer.is_valid(raise_exception=True):
-                serializer.save()
-            elif not serializer.save():
-                result = "更新失敗"
-            else:
-                result = "更新内容エラー"
+            result = "DB登録内容エラー"
 
-        res_data.clear()
+    else:
+        # user_idが同一の場合は更新処理
+        print("update")
+        print(request)
+        serializer = serializer(instance=save_query, data=request)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+        elif not serializer.save():
+            result = "更新失敗"
+        else:
+            result = "更新内容エラー"
 
     return result
 
@@ -113,10 +115,12 @@ def update_project_request(request):
     if len(result) > 0:
         return result
 
-    result = update_request(Project,
-                            ProjectSerializer,
-                            ProjectColumn.ID.value,
-                            request.data["data"][0][RequestDateType.ID.value],
-                            request)
+    for val in request.data["data"]:
+        result = update_request(Project,
+                                ProjectSerializer,
+                                ProjectColumn.ID.value,
+                                val[RequestDateType.ID.value],
+                                val,
+                                request.user)
 
     return result

@@ -20,15 +20,20 @@ Content-Type: application/json
   "params": [
         {
           "username": "ai_app",
-          "token": "evb41xz0rrepmv0g1nx1z2upjab9w28d",
+          "token": "ojvuew8x07ux7fsfz3l0wlp7km3biblq",
           "user_id": "8"
         }
       ],
   "data": [
     {
-      "id": "0",
-      "project_name": "test",
-      "object_detection_model_name_id": "19"
+      "id": "4",
+      "project_name": "fish",
+      "object_detection_model_name": "19"
+    },
+    {
+      "id": "5",
+      "project_name": "MRI",
+      "object_detection_model_name": "19"
     }
   ]
 }
