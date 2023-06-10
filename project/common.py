@@ -63,7 +63,7 @@ def update_request(queryset, serializer, key_id, id_value_flag, request, user):
         user(str): ログインユーザー情報
     """
 
-    timestamp = 1337000000
+    timestamp = datetime.datetime.now().timestamp()
 
     # id_valueが0の場合、一番最新のidに対してプラス1して、id取得する(新規作成)
     # 更新の場合、id_valueにそのままid_value_flagを代入する

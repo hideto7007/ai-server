@@ -50,9 +50,11 @@ class ProjectDeleteAPIView(views.APIView):
                        request.data["params"][0]["token"],
                        request.data["params"][0]["user_id"]):
             result_code = ApiResultKind.RESULT_SUCCESS
-            result_array = delete_request(Project,
-                                          ProjectColumn.ID.value,
-                                          request.data[ProjectColumn.ID.value])
+            result_array = None
+            for val in request.data["data"]:
+                result_array = delete_request(Project,
+                                              ProjectColumn.ID.value,
+                                              val[ProjectColumn.ID.value])
 
             if len(result_array) == 0:
                 result_code = result_code
