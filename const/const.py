@@ -10,6 +10,12 @@ class ObjectDetectionModelColumn(Enum):
     """物体検知モデル表示用カラムデータ"""
     ID = "id"
     OBJECT_DETECTION_MODEL_NAME = "object_detection_model_name"
+    OBJECT_DETECTION_MODEL_NAME_ID = "object_detection_model_name_id"
+
+class ProjectColumn(Enum):
+    """プロジェクト表示用カラムデータ"""
+    ID = "id"
+    PROJECT_NAME = "project_name"
 
 class AccountColumn(Enum):
     """アカウント表示用カラムデータ"""

@@ -1,42 +1,89 @@
-POST http://localhost:8000/api/incomeforecast/income_forecast_update/
+POST http://127.0.0.1:8000/api/project/project_delete/
 Content-Type: application/json
 
 {
-    "data": [
+    "params": [
         {
-            "payment_date": "2022-10-15",
-            "age": "22",
-            "industry": "ffefe",
-            "classification": "給料",
-            "total_amount": "25000",
-            "deduction_amount": "500",
-            "profile": "b1639e6e-afe1-4b4f-aaf2-09966c663b0e",
-            "income_forecast_id": "",
-            "take_home_amount": "24500"
-        },
-        {
-            "payment_date": "2022-09-15",
-            "age": "30",
-            "industry": "dsrere",
-            "classification": "給料",
-            "total_amount": "850000",
-            "deduction_amount": "150000",
-            "profile": "b1639e6e-afe1-4b4f-aaf2-09966c663b0e",
-            "income_forecast_id": "",
-            "take_home_amount": "700000"
-        },
-        {
-            "payment_date": "2022-11-15",
-            "age": "22",
-            "industry": "ffefe",
-            "classification": "給料",
-            "total_amount": "25000",
-            "deduction_amount": "500",
-            "profile": "b1639e6e-afe1-4b4f-aaf2-09966c663b0e",
-            "income_forecast_id": "",
-            "take_home_amount": "24500"
+          "username": "ai_app",
+          "token": "ek43901olmrvn0esjtykm2ujaxb7irns",
+          "user_id": "8"
         }
-    ]
+      ],
+  "data": [
+    {
+      "id": "5"
+    },
+    {
+      "id":  "6"
+    }
+  ]
+}
+
+###
+POST http://127.0.0.1:8000/api/project/project_create_or_update/
+Content-Type: application/json
+
+
+{
+  "params": [
+        {
+          "username": "ai_app",
+          "token": "ojvuew8x07ux7fsfz3l0wlp7km3biblq",
+          "user_id": "8"
+        }
+      ],
+  "data": [
+    {
+      "id": "4",
+      "project_name": "fish",
+      "object_detection_model_name": "19"
+    },
+    {
+      "id": "5",
+      "project_name": "MRI",
+      "object_detection_model_name": "19"
+    }
+  ]
+}
+
+
+
+
+
+###
+GET http://127.0.0.1:8000/api/object_detection_model/object_detection_model_list/?user_id=8&username=ai_app
+Accept: application/json
+
+###
+GET http://127.0.0.1:8000/api/project/project_list/?model_name=EfficientDet&id=19&user_id=8&username=ai_app
+Accept: application/json
+
+
+//{
+//  "params": [
+//        {
+//          "username": "ai_app",
+//          "token": "90h3csnejam5wlem2sqle6c1wzldd49y",
+//          "user_id": "8"
+//        }
+//      ],
+//  "data": [
+//    {
+//      "id": "0",
+//      "project_name": "test",
+//      "object_detection_model_name_id": "19"
+//    }
+//  ]
+//}
+
+
+###
+POST http://127.0.0.1:8000/api/login
+Content-Type: application/json
+
+{
+  "username": "ai_app",
+  "password": "Ai-app123dev"
 }
 
 ###
@@ -194,165 +241,3 @@ Content-Type: application/json
     ]
 }
 
-
-###
-POST http://127.0.0.1:8000/api/profile_update/
-Content-Type: application/json
-
-//{
-//    "id": "b1639e6e-afe1-4b4f-aaf2-09966c663b0e",
-//    "data": [
-//        {
-//            "id": "b1639e6e-afe1-4b4f-aaf2-09966c663b0e",
-//            "first_name": "devlop",
-//            "last_name": "admin",
-//            "sex": "男性",
-//            "age": "25",
-//            "info": "フリーランス"
-//        }
-//    ]
-//}
-
-
-
-//{
-//    "user_id": "1",
-//    "data": [
-//        {
-//            "id": "b1639e6e-afe1-4b4f-aaf2-09966c663b0e",
-//            "first_name": "都築",
-//            "last_name": "秀人",
-//            "sex": "男性",
-//            "age": "28",
-//            "info": "会社員"
-//        }
-//    ]
-//}
-
-{
-    "user_id": "5",
-    "data": [
-        {
-            "id": "0fe77d6e-1eb2-41c7-8e9b-b2ffa05c8028",
-            "first_name": "常慶",
-            "last_name": "翔",
-            "sex": "男性",
-            "age": "35",
-            "info": "会社員"
-        }
-    ]
-}
-
-
-
-
-
-###
-
-POST http://127.0.0.1:8000/api/profile_update/
-Content-Type: application/json
-
-{
-    "user_id": "1",
-    "data": [
-        {
-            "user_id": "1",
-            "first_name": "都築",
-            "last_name": "秀人",
-            "sex": "男性",
-            "age": "28",
-            "info": "会社員"
-        }
-    ]
-}
-
-
-
-###
-GET http://127.0.0.1:8000/api/profile_list/?id=53d44249-445e-43e9-92d2-29638a981072
-Accept: application/json
-
-###
-GET http://127.0.0.1:8000/api/profile_create/
-Accept: application/json
-
-###
-POST http://localhost:8000/api/auth/
-Content-Type: application/json
-
-//{
-//  "username": "user_admin",
-//  "password": "ad123min456"
-//}
-
-{
-  "username": "ai_app",
-  "password": "ai_app123"
-}
-
-###
-
-POST http://localhost:8000/api/create-users/
-Content-Type: application/json
-
-//{
-//  "first_name": "hoge",
-//  "last_name": "hoge2",
-//  "username": "hogehoge",
-//  "password": "hogehoge123",
-//  "is_active": true,
-//  "is_superuser": false
-//}
-
-{
-  "first_name": "tsuzuki",
-  "last_name": "hideto",
-  "username": "tsuzuki",
-  "password": "tsuzuki123!",
-  "email": "tsuzuki@example.com",
-  "is_active": true,
-  "is_superuser": true
-}
-
-###
-
-#"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImZpbmFuY2UiLCJleHAiOjE2NTU2NDA3ODcsImVtYWlsIjoiZmluYW5jZUBleGFtcGxlLmNvbSIsIm9yaWdfaWF0IjoxNjU1NTU0Mzg3fQ.EzVmwcZA5awktkt_fwwk6QbXHBqyQKY_WWgBnsSp6Hc"
-
-
-//{
-//    "data": [
-//        {
-//            "payment_date": "2022-05-15",
-//            "age": "22",
-//            "industry": "ffefe",
-//            "classification": "給料",
-//            "total_amount": "25000",
-//            "deduction_amount": "500",
-//            "profile": "b1639e6e-afe1-4b4f-aaf2-09966c663b0e",
-//            "income_forecast_id": "",
-//            "take_home_amount": "24500"
-//        },
-//        {
-//            "payment_date": "2022-05-15",
-//            "age": "22",
-//            "industry": "ffefe",
-//            "classification": "給料",
-//            "total_amount": "25000",
-//            "deduction_amount": "500",
-//            "profile": "b1639e6e-afe1-4b4f-aaf2-09966c663b0e",
-//            "income_forecast_id": "",
-//            "take_home_amount": "24500"
-//        },
-//        {
-//            "payment_date": "",
-//            "age": "",
-//            "industry": "",
-//            "classification": "",
-//            "total_amount": 0,
-//            "deduction_amount": 0,
-//            "profile": "b1639e6e-afe1-4b4f-aaf2-09966c663b0e",
-//            "income_forecast_id": "",
-//            "take_home_amount": "0"
-//        }
-//    ]
-//}
