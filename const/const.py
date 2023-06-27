@@ -26,3 +26,8 @@ class RequestDateType(Enum):
     ENTRY_DATA = "data"
     ID = "id"
     USER_ID = "user_id"
+
+
+class PathList(Enum):
+    """登録及び削除パス一覧"""
+    path_list = ["./evals/model", "./evals/input", "./evals/output"]

@@ -3,14 +3,18 @@ from rest_framework import generics, viewsets, views
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.http import JsonResponse
+import os
+import shutil
 
 from common.common import check_login, delete_request
 from project.common import (
     get_project_model_list,
     update_project_request
 )
-from const.const import ApiResultKind, ProjectColumn
+from const.const import ApiResultKind, ProjectColumn, PathList
 from project.models import Project
+from object_detection_model.models import ObjectDetectionModel
+from project.serializer.serializers import ProjectSerializer
 
 
 class ProjectlListAPIView(views.APIView):
@@ -52,6 +56,14 @@ class ProjectDeleteAPIView(views.APIView):
             result_code = ApiResultKind.RESULT_SUCCESS
             result_array = None
             for val in request.data["data"]:
+                query = Project.objects.filter(id=val[ProjectColumn.ID.value])
+                model_id = [val["object_detection_model_name"] for val in ProjectSerializer(query, many=True).data][0]
+                model_name = ObjectDetectionModel.objects.filter(id=model_id)
+
+                for path in PathList.path_list.value:
+                    full_path = path + "/" + str(model_name[0]) + "/" + str(query[0])
+                    shutil.rmtree(full_path)
+
                 result_array = delete_request(Project,
                                               ProjectColumn.ID.value,
                                               val[ProjectColumn.ID.value])
