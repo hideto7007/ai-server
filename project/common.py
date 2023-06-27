@@ -6,6 +6,7 @@ import datetime
 from dateutil import tz
 import pandas as pd
 import json
+import os
 
 from common.common import (
     value_check,
@@ -19,7 +20,7 @@ from common.common import (
     get_best_new_id
 
 )
-from const.const import ObjectDetectionModelColumn, RequestDateType, ProjectColumn
+from const.const import ObjectDetectionModelColumn, RequestDateType, ProjectColumn, PathList
 
 
 def get_project_model_list(model_name, id_str):
@@ -122,5 +123,14 @@ def update_project_request(request):
                                 val[RequestDateType.ID.value],
                                 val,
                                 request.user)
+
+        model_name = ObjectDetectionModel.objects.filter(id=val["object_detection_model_name"])
+
+        for path in PathList.path_list.value:
+            full_path = path + "/" + str(model_name[0]) + "/" + val["project_name"]
+
+            # 新規プロジェクト名追加時には学習済みモデル格納ディレクトリ作成
+            if val[RequestDateType.ID.value] == "0" and not os.path.exists(full_path):
+                os.makedirs(full_path)
 
     return result

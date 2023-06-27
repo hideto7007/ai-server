@@ -1,3 +1,15 @@
+GET http://127.0.0.1:8000/api/evals/learning_model_list/?username=ai_app&token=m77hxhfivol4akb1yxz1mo3oi1lo2l9s&user_id=8&object_detection_model_name=EfficientDet&project_name=library_data
+Accept: application/json
+
+###
+GET http://127.0.0.1:8000/api/evals/learning_model_list/?username=ai_app&token=m77hxhfivol4akb1yxz1mo3oi1lo2l9s&user_id=8&object_detection_model_name=EfficientDet&project_name=MRI
+Accept: application/json
+
+###
+GET http://127.0.0.1:8000/api/evals/learning_model_list/?username=ai_app&token=2iavh8vfo5mq8vcmb3tgkaq7fz2we4b4&user_id=8&object_detection_model_name=EfficientDet&project_name=MRI
+Accept: application/json
+
+###
 POST http://127.0.0.1:8000/api/project/project_delete/
 Content-Type: application/json
 
@@ -5,16 +17,16 @@ Content-Type: application/json
     "params": [
         {
           "username": "ai_app",
-          "token": "ek43901olmrvn0esjtykm2ujaxb7irns",
+          "token": "ld61yufn0tlk8crjq6lv03clqgi6cksj",
           "user_id": "8"
         }
       ],
   "data": [
     {
-      "id": "5"
+      "id": "38"
     },
     {
-      "id":  "6"
+      "id":  "36"
     }
   ]
 }
@@ -28,7 +40,7 @@ Content-Type: application/json
   "params": [
         {
           "username": "ai_app",
-          "token": "ojvuew8x07ux7fsfz3l0wlp7km3biblq",
+          "token": "ld61yufn0tlk8crjq6lv03clqgi6cksj",
           "user_id": "8"
         }
       ],
@@ -39,9 +51,14 @@ Content-Type: application/json
       "object_detection_model_name": "19"
     },
     {
-      "id": "5",
-      "project_name": "MRI",
+      "id": "0",
+      "project_name": "test",
       "object_detection_model_name": "19"
+    },
+    {
+      "id": "0",
+      "project_name": "casting",
+      "object_detection_model_name": "26"
     }
   ]
 }

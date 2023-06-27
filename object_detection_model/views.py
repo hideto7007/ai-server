@@ -3,13 +3,14 @@ from rest_framework import generics, viewsets, views
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.http import JsonResponse
+import shutil
 
 from common.common import check_login, delete_request
 from object_detection_model.common import (
     get_object_detection_model_list,
     update_object_detection_model_name_request
 )
-from const.const import ApiResultKind, ObjectDetectionModelColumn
+from const.const import ApiResultKind, ObjectDetectionModelColumn, PathList
 from object_detection_model.models import ObjectDetectionModel
 
 
@@ -51,6 +52,14 @@ class ObjectDetectionModelDeleteAPIView(views.APIView):
                        request.data["params"][0]["token"],
                        request.data["params"][0]["user_id"]):
             result_code = ApiResultKind.RESULT_SUCCESS
+            object_model_name = ObjectDetectionModel.objects.filter(id=request.data[ObjectDetectionModelColumn.ID.value])
+
+            # 学習済みモデルを格納するモデル名ディレクトリごと削除する
+            for path in PathList.path_list.value:
+                full_path = path + "/" + str(object_model_name[0])
+                shutil.rmtree(full_path)
+
+
             result_array = delete_request(ObjectDetectionModel,
                                           ObjectDetectionModelColumn.ID.value,
                                           request.data[ObjectDetectionModelColumn.ID.value])
