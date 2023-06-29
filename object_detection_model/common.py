@@ -1,10 +1,14 @@
 from object_detection_model.models import ObjectDetectionModel
+from project.models import Project
+from evals.models import LearningImage
 from object_detection_model.serializer.serializers import ObjectDetectionModelSerializer
 from django.db.models import Q
 import datetime
 from dateutil import tz
 import pandas as pd
 import json
+import os
+import shutil
 
 from common.common import (
     value_check,
@@ -17,7 +21,7 @@ from common.common import (
     valid_request_check
 
 )
-from const.const import ObjectDetectionModelColumn, RequestDateType
+from const.const import ObjectDetectionModelColumn, RequestDateType, PathList
 
 
 def get_object_detection_model_list():
@@ -46,6 +50,8 @@ def update_request(queryset, serializer, key_id, id_value, request):
 
     timestamp = 1337000000
 
+    flag = True
+
     filter_dict = {
         key_id: str(id_value),
     }
@@ -72,6 +78,7 @@ def update_request(queryset, serializer, key_id, id_value, request):
         else:
             # user_idが同一の場合は更新処理
             serializer = serializer(instance=save_query, data=res)
+            flag = False
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
             elif not serializer.save():
@@ -79,7 +86,7 @@ def update_request(queryset, serializer, key_id, id_value, request):
             else:
                 result = "更新内容エラー"
 
-    return result
+    return result, flag
 
 
 def update_object_detection_model_name_request(request):
@@ -88,10 +95,42 @@ def update_object_detection_model_name_request(request):
     if len(result) > 0:
         return result
 
-    result = update_request(ObjectDetectionModel,
-                            ObjectDetectionModelSerializer,
-                            ObjectDetectionModelColumn.ID.value,
-                            request.data["data"][0][RequestDateType.ID.value],
-                            request)
+    name_list = []
+
+    before_model_name = ObjectDetectionModel.objects.filter(id=request.data["data"][0][RequestDateType.ID.value])
+    name_list.append(before_model_name[0])
+
+    result, flag = update_request(ObjectDetectionModel,
+                                  ObjectDetectionModelSerializer,
+                                  ObjectDetectionModelColumn.ID.value,
+                                  request.data["data"][0][RequestDateType.ID.value],
+                                  request)
+
+    after_model_name = ObjectDetectionModel.objects.filter(id=request.data["data"][0][RequestDateType.ID.value])
+    name_list.append(after_model_name[0])
+    project_name = Project.objects.filter(object_detection_model_name=request.data["data"][0][RequestDateType.ID.value])
+    # 各オブジェクトの特定のフィールドの値を取得
+    values = [obj.project_name for obj in project_name]
+
+    print(os.listdir("./evals/model"))
+
+    if not flag:
+        for path in PathList.path_list.value:
+            for project in values:
+                before_path = path + "/" + str(name_list[0]) + "/" + project
+                after_path = path + "/" + str(name_list[1]) + "/" + project
+
+                shutil.move(before_path, after_path)
+
+                # 削除しない代わりに、画像情報DB内のパスを一部更新出来るようにする
+                path_name = LearningImage.objects.filter(file_path__icontains=before_path)
+
+                if len(path_name) >= 1:
+
+                    new_path_name = str(path_name[0]).replace(str(name_list[0]), str(name_list[1]))
+
+                    for obj in path_name:
+                        obj.file_path = new_path_name
+                        obj.save()
 
     return result
