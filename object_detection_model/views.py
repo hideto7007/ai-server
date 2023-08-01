@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.http import JsonResponse
 import shutil
+import os
 
 from common.common import check_login, delete_request
 from object_detection_model.common import (
@@ -57,7 +58,8 @@ class ObjectDetectionModelDeleteAPIView(views.APIView):
             # 学習済みモデルを格納するモデル名ディレクトリごと削除する
             for path in PathList.path_list.value:
                 full_path = path + "/" + str(object_model_name[0])
-                shutil.rmtree(full_path)
+                if os.path.isdir(full_path):
+                    shutil.rmtree(full_path)
 
 
             result_array = delete_request(ObjectDetectionModel,

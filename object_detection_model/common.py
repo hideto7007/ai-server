@@ -97,8 +97,11 @@ def update_object_detection_model_name_request(request):
 
     name_list = []
 
+    print(request.data["data"][0][RequestDateType.ID.value])
+
     before_model_name = ObjectDetectionModel.objects.filter(id=request.data["data"][0][RequestDateType.ID.value])
-    name_list.append(before_model_name[0])
+    if len(before_model_name) != 0:
+        name_list.append(before_model_name[0])
 
     result, flag = update_request(ObjectDetectionModel,
                                   ObjectDetectionModelSerializer,
@@ -107,7 +110,8 @@ def update_object_detection_model_name_request(request):
                                   request)
 
     after_model_name = ObjectDetectionModel.objects.filter(id=request.data["data"][0][RequestDateType.ID.value])
-    name_list.append(after_model_name[0])
+    if len(after_model_name) != 0:
+        name_list.append(after_model_name[0])
     project_name = Project.objects.filter(object_detection_model_name=request.data["data"][0][RequestDateType.ID.value])
     # 各オブジェクトの特定のフィールドの値を取得
     values = [obj.project_name for obj in project_name]
@@ -132,5 +136,10 @@ def update_object_detection_model_name_request(request):
                     for obj in path_name:
                         obj.file_path = new_path_name
                         obj.save()
+
+        # いらなくなったディレクトリ削除
+        for path in PathList.path_list.value:
+            if os.path.isdir(path + "/" + str(name_list[0])):
+                os.rmdir(path + "/" + str(name_list[0]))
 
     return result
