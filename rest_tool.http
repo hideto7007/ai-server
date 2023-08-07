@@ -1,4 +1,4 @@
-GET http://127.0.0.1:8000/api/evals/learning_model_list/?username=ai_app&token=m77hxhfivol4akb1yxz1mo3oi1lo2l9s&user_id=8&object_detection_model_name=EfficientDet&project_name=library_data
+GET http://127.0.0.1:8000/api/evals/learning_model_list/?username=ai_app&token=1viw5rqhtupvmsnwptbp58iisxmcorcz&user_id=8&object_detection_model_name=EfficientDet&project_name=library_data
 Accept: application/json
 
 ###
@@ -6,7 +6,7 @@ GET http://127.0.0.1:8000/api/evals/learning_model_list/?username=ai_app&token=m
 Accept: application/json
 
 ###
-GET http://127.0.0.1:8000/api/evals/learning_model_list/?username=ai_app&token=2iavh8vfo5mq8vcmb3tgkaq7fz2we4b4&user_id=8&object_detection_model_name=EfficientDet&project_name=MRI
+GET http://127.0.0.1:8000/api/evals/learning_model_list/?username=ai_app&token=4lvtwlfuhnkywch3tqfwt86e7i5pr8ee&user_id=8&object_detection_model_name=EfficinetDet&project_name=library_data
 Accept: application/json
 
 ###
